@@ -1,0 +1,9 @@
+[submodule "descheduler"]
+	path = descheduler
+	url = https://github.com/role-nzo/descheduler
+[submodule "scheduler-plugins"]
+	path = scheduler-plugins
+	url = https://github.com/role-nzo/scheduler-plugins
+[submodule "latency-meter"]
+	path = latency-meter
+	url = https://github.com/role-nzo/latency-meter
