@@ -1,0 +1,32 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: /etc/kubernetes/scheduler.conf
+profiles:
+- schedulerName: default-scheduler
+  plugins:
+    filter:
+      enabled:
+      - name: LatencyAware
+      disabled:
+      - name: "*"
+    permit:
+      enabled:
+      - name: LatencyAware
+      disabled:
+      - name: "*"
+    reserve:
+      enabled:
+      - name: LatencyAware
+    postBind:
+      enabled:
+      - name: LatencyAware
+      disabled:
+      - name: "*"
+  pluginConfig:
+  - name: LatencyAware
+    args:
+      probeAppLabel: "lm-server"
+      targetAppLabel: "nginx"

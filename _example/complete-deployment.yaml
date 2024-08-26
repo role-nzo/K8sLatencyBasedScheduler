@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    feature: latency-aware-deployment
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      feature: latency-aware-deployment
+      app: nginx
+  template:
+    metadata:
+      labels:
+        feature: latency-aware-deployment
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+        ports:
+        - containerPort: 80
+      - name: lm-server-container
+        image: devrols/lm-server:3
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lm-server-deployment
+  labels:
+    feature: latency-aware-deployment
+    app: lm-server
+spec:
+  replicas: 1 #delta: Probe = Target + delta; here delta=1
+  selector:
+    matchLabels:
+      feature: latency-aware-deployment
+      app: lm-server
+  template:
+    metadata:
+      labels:
+        feature: latency-aware-deployment
+        app: lm-server
+    spec:
+      containers:
+      - name: lm-server-container
+        image: devrols/lm-server:3
+        ports:
+        - containerPort: 8080

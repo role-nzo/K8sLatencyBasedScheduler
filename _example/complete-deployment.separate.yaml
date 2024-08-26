@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lm-server-deployment
+  labels:
+    app: lm-server
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: lm-server
+  template:
+    metadata:
+      labels:
+        app: lm-server
+    spec:
+      containers:
+      - name: lm-server-container
+        image: devrols/lm-server:3
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+        ports:
+        - containerPort: 80
