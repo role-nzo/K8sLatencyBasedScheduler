@@ -69,12 +69,12 @@ kubectl apply -f complete-deployment.yaml
 Questo inizializzerà i pod in modo tale che ogni container `target` sarà affiancato da un container `probe`. Inoltre, verrà creato un ulteriore pod contenente solo un container `probe`, necessario per il corretto funzionamento dello scheduler.
 
 I servizi saranno esposti utilizzando:
-- il file [`/config/lm-server-service.nodeport.yml](https://github.com/role-nzo/latency-meter/tree/master/config/lm-server-service.nodeport.yml) nel repository latency-meter per i container `probe`
-- il file di esempio [`/_example/service-target.yaml](https://github.com/role-nzo/K8sLatencyBasedScheduler/_example/service-target.yaml) per i container `target` (`nginx` nel nostro caso)
+- il file [`/config/lm-server-service.nodeport.yml`](https://github.com/role-nzo/latency-meter/tree/master/config/lm-server-service.nodeport.yml) nel repository latency-meter per i container `probe`
+- il file di esempio [`/_example/service-target.yaml`](https://github.com/role-nzo/K8sLatencyBasedScheduler/_example/service-target.yaml) per i container `target` (`nginx` nel nostro caso)
 
 ## Esecuzione del Sistema
 - copiare il file `/etc/kubernetes/admin.conf` nella macchina host
-- avviare il programma [`/_example/tester.sh](https://github.com/role-nzo/K8sLatencyBasedScheduler/_example/tester.sh) nel control-node per misurare la latenza verso il servizio `target`
+- avviare il programma [`/_example/tester.sh`](https://github.com/role-nzo/K8sLatencyBasedScheduler/_example/tester.sh) nel control-node per misurare la latenza verso il servizio `target`
 - sulla macchina host, eseguire il seguente comando per avviare il servizio che pubblicherà i dati su un server MQTT, informando così il descheduler:
 ~~~
 docker run --network kind --rm -v <percorso_host_al_file_admin.conf>:/root/kubeconfig lm-client:5 -kubeconfig=/root/kubeconfig -lmport=30007
